@@ -1,12 +1,17 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+import csv
 
-html = urlopen('https://books.toscrape.com/catalogue/category/books/classics_6/index.html')
-soup = BeautifulSoup(html.read(), 'html.parser')
+html = urlopen(
+    "https://books.toscrape.com/catalogue/category/books/classics_6/index.html"
+)
+soup = BeautifulSoup(html.read(), "html.parser")
 
-body = soup.find('body')
-h3 = body.find_all('h3')
-price = body.find_all('p',{'class':'price_color'})
+# csv file
+
+
+h3 = soup.find_all("h3")
+price = soup.find_all("p", {"class": "price_color"})
 
 products = []  # list of names and prices
 
@@ -19,3 +24,4 @@ for prices in price:
 
 
 print(products)
+# this is fine for now, im going to attempt exporting successfully the data to csv next time
