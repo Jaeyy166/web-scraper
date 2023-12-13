@@ -1,18 +1,23 @@
-# Book Walker Shoujo Light Novels web scraping practice
+# Book Walker Shoujo Manga web scraping practice
 # with tags: Slice of life, Romance and Shoujo
 from bs4 import BeautifulSoup
-from urllib.request import urlopen
+import requests
 
-html = urlopen("https://global.bookwalker.jp/categories/2/?qtag=6%2C1056%2C1066")
-soup = BeautifulSoup(html.read(), 'html.parser')
+source = requests.get(
+        "https://global.bookwalker.jp/categories/2/?qtag=6%2C1056%2C1066"
+    )
+try:
+    soup = BeautifulSoup(source.text, "html.parser")
 
-h2 = soup.find_all('h2', {'class':'a-tile-ttl'})
-price = soup.find_all('div',{'class':'a-tile-price'})
+    mangas = soup.find_all('li', class_="o-tile")
 
-product_list = []
+    for manga in mangas:
+        title = manga.find("h2", class_="a-tile-ttl")
+        price = manga.find("div", class_="a-tile-price")
 
-for title in h2:
-    name = title.get_text().strip().replace('\n', '')
-    product_list.append(name)
+        cleanData = title.get_text() + " " + price.get_text()
+        print(cleanData)    
+        # AINT NO FUCKING WAY THIS WORKED 
 
-print(product_list)
+except Exception as e:
+    print(e)
