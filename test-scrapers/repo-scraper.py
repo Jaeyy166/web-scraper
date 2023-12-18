@@ -3,14 +3,14 @@
 from bs4 import BeautifulSoup
 import requests
 
-source = 'http://#'
-r = requests.get(source)
-soup = BeautifulSoup(r.text, 'html.parser')
+source = requests.get('https://github.com/Jaeyy166?tab=repositories')
 
-def get_links():
-
-
-def repo_lists():
+try:
+    soup = BeautifulSoup(source.text, 'html.parser')
+    link = soup.find_all('h3', 'a')
+    
 
 
-def main():
+
+except Exception as e:
+    print(e)
