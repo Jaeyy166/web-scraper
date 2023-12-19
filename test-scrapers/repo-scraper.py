@@ -7,7 +7,11 @@ source = requests.get('https://github.com/Jaeyy166?tab=repositories')
 
 try:
     soup = BeautifulSoup(source.text, 'html.parser')
-    link = soup.find_all('h3', 'a')
+    link = soup.find_all('h3', {'class':'wb-break-all'})
+
+    for links in link:
+        repo_title = links.get_text()
+        print(repo_title)
     
 
 
