@@ -9,8 +9,8 @@ article = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
 books_list = []
 
 for items in article:
-    article = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
-    title = items.find('h3',).text 
+    img = items.find('img')
+    title = img.attrs['alt']
     price = items.find('p', {'class':'price_color'}).text
     book = title , price
     books_list.append(book)
