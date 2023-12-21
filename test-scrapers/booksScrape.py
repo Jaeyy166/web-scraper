@@ -2,26 +2,19 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import csv
 
-html = urlopen(
-    "https://books.toscrape.com/catalogue/category/books/classics_6/index.html"
-)
+html = urlopen("https://books.toscrape.com/catalogue/category/books/classics_6/index.html")
 soup = BeautifulSoup(html.read(), "html.parser")
+article = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
+    
+books_list = []
 
-# csv file
+for items in article:
+    article = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
+    title = items.find('h3',).text 
+    price = items.find('p', {'class':'price_color'}).text
+    book = title , price
+    books_list.append(book)
 
+print(books_list)
 
-h3 = soup.find_all("h3")
-price = soup.find_all("p", {"class": "price_color"})
-
-products = []  # list of names and prices
-
-for title in h3:
-    name = title.get_text()
-    products.append(name)
-for prices in price:
-    product_price = prices.get_text()
-    products.append(product_price)
-
-
-print(products)
 # this is fine for now, im going to attempt exporting successfully the data to csv next time
